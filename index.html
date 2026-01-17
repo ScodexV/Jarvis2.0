@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <title>JARVIS</title>
+  <link rel="stylesheet" href="./jarvis.css">
+</head>
+
+<body>
+  <h1 style="color: aliceblue;">JARVIS 2.0</h1>
+  <!-- <img src="./IuNL.gif" alt="Computer man" style="width:200px;height:100px;" > -->
+  <main>
+    <div id="msg-container">
+      <div class="user-msg"></div>
+      <div class="bot-msg">JARVIS:- Hello, I am JARVIS Virtual AI</div>
+    </div>
+
+    <div class="user-input-div">
+      <input type="text" name="" class="user-input" placeholder="How can I assist you today" >
+      <button class="btn">search</button>
+    </div>
+  </main>
+
+  <script type="importmap">
+      {
+        "imports": {
+          "@google/generative-ai": "https://esm.run/@google/generative-ai"
+        }
+      }
+    </script>
+
+  <script type="module">
+    import { GoogleGenerativeAI } from "@google/generative-ai";
+    let API_KEY = "AIzaSyBaedsAGP9hp4h95qS3QTl30koCsyqd2Ls";
+
+    const genAI = new GoogleGenerativeAI(API_KEY);
+    let btn = document.querySelector(".btn");
+    let msgContainer = document.getElementById("msg-container");
+    let enter = document.getElementsByClassName("user-input")
+    console.log(enter);
+    async function runCode() {
+      const model = genAI.getGenerativeModel({ model: "gemini-3-flash-preview" });
+      let userInput = document.querySelector(".user-input").value;
+      console.log(userInput);
+      const prompt = userInput;
+
+      const result = await model.generateContent(prompt);
+      const response = await result.response;
+      const text = response.text();
+      console.log(text);
+
+      let botmessagediv = document.createElement("div");
+      botmessagediv.innerText = text;
+      msgContainer.appendChild(botmessagediv)
+
+      let botmessagehr = document.createElement("hr");
+      msgContainer.appendChild(botmessagehr)
+      enter[0].innerText = "";
+
+
+
+    }
+
+    btn.addEventListener("click", runCode);
+    btn.ass
+    enter[0].addEventListener("change", runCode);
+
+
+
+
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+
+  <!-- <script src="./jarvis.js"></script> -->
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- //voice command
+
+// if (SPEECH.isCapable()) {
+//     SPEECH.onStart(function () {
+
+//     });
+//     SPEECH.onStop(function () {
+
+//     });
+//     SPEECH.min_confidence = .2;
+//     SPEECH.addVoiceCommands([
+//         {
+//             command: "show help",
+//             callback: function () {
+
+//             },
+//             min_confidence: .5
+//         },
+//         {
+//             command: /next (slide)?/,
+//             callback: function () {
+
+//             }
+//         },
+//         {
+//             command: /go.+(top|home)/,
+//             callback: function () {
+
+//             }
+//         }
+//     ]);
+//     SPEECH.onResult(function (result) {
+
+//     });
+
+
+//     SPEECH.start({
+//         min_confidence: .3,
+//         lang: 'en-US'
+//     });
+
+// } -->
